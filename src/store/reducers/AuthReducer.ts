@@ -1,5 +1,9 @@
-import { AUTH } from "@store/actions/actionTypes";
-import { IAuth, IAuthAction } from "@store/types";
+import { IAuthAction } from "@store/actions/auth/types";
+import { AUTH } from "@store/reducers/actionTypes";
+
+interface IAuth {
+  token: string;
+}
 
 const initialState: IAuth = {
   token: "",

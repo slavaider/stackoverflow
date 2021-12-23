@@ -2,35 +2,35 @@ import React, { FC, useEffect } from "react";
 
 import api from "@config/api";
 import Button from "@mui/material/Button";
-import authPerson from "@store/actions/authActions";
-import { useDispatch } from "react-redux";
+import { RootState } from "@store/store";
+import { useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Auth: FC = () => {
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1).split("&");
-    const token = hash[0].split("=")[1];
-
-    dispatch(authPerson(token));
-  }, [window.location.hash]);
-
-  function onSomeButtonClicked() {
-    dispatch({ type: "USER_FETCH_REQUESTED", payload: "" });
-  }
+    if (token) {
+      history.push(`/questions${location.hash}`);
+    }
+  }, [token]);
 
   return (
-    <div>
-      <a
-        rel="noreferrer"
-        href={`https://stackoverflow.com/oauth/dialog?client_id=${api.client_id}&redirect_uri=${window.location.href}`}
-      >
-        to heaven
-      </a>
-      <Button variant="contained" onClick={onSomeButtonClicked}>
-        Hello World
-      </Button>
-    </div>
+    <Button
+      sx={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%,-50%)",
+      }}
+      variant="contained"
+      color="warning"
+      href={`https://stackoverflow.com/oauth/dialog?client_id=${api.client_id}&redirect_uri=${window.location.href}`}
+    >
+      Login to stackoverflow
+    </Button>
   );
 };
 

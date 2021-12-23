@@ -2,13 +2,13 @@ import AuthReducer from "@store/reducers/AuthReducer";
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 
-import PersonsReducer from "./reducers/PersonsReducer";
-import mySaga from "./sagas";
+import mySaga from "./questionsSaga";
+import QuestionsReducer from "./reducers/QuestionsReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
-  persons: PersonsReducer,
+  questions: QuestionsReducer,
   auth: AuthReducer,
 });
 
