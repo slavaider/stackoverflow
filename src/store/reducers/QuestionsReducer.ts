@@ -3,16 +3,25 @@ import {
   FETCH_QUESTIONS_FAILED,
   FETCH_QUESTIONS_SUCCESS,
   SET_LOADING,
+  SET_OPTIONS,
 } from "@store/actionTypes";
+import IOptions, { Order, Sort } from "@store/model/IOptions";
 import IQuestion from "@store/model/IQuestion";
 
 interface IQuestions {
+  options: IOptions;
   items: IQuestion[];
   loading: boolean;
   error: null | Error;
 }
 
 const initialState: IQuestions = {
+  options: {
+    order: Order.asc,
+    sort: Sort.activity,
+    pagesize: 5,
+    page: 1,
+  },
   items: [],
   loading: false,
   error: null,
@@ -41,6 +50,12 @@ export default function QuestionsReducer(
       return {
         ...state,
         loading: action.payload,
+      };
+    }
+    case SET_OPTIONS: {
+      return {
+        ...state,
+        options: action.payload,
       };
     }
     default:

@@ -3,6 +3,7 @@ import {
   FETCH_QUESTIONS_FAILED,
   FETCH_QUESTIONS_SUCCESS,
   SET_LOADING,
+  SET_OPTIONS,
 } from "@store/actionTypes";
 import IOptions from "@store/model/IOptions";
 import IQuestion from "@store/model/IQuestion";
@@ -27,8 +28,14 @@ export interface ISetLoading {
   payload: boolean;
 }
 
+export interface ISetOptions {
+  type: typeof SET_OPTIONS;
+  payload: IOptions;
+}
+
 export type IQuestionsActions =
   | IGetQuestionsSuccess
   | IGetQuestionsFailed
   | IGetQuestions
-  | ISetLoading;
+  | ISetLoading
+  | ISetOptions;

@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 
 import { Chip, Pagination } from "@mui/material";
+import { setOptions } from "@store/actions/questions/questionsActions";
 import { FETCH_QUESTIONS } from "@store/actionTypes";
-import IOptions, { Order, Sort } from "@store/model/IOptions";
 import IQuestion from "@store/model/IQuestion";
 import { RootState } from "@store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,16 +13,10 @@ import QuestionCard from "./components/QuestionCard";
 
 const Questions: FC = () => {
   const questions = useSelector((state: RootState) => state.questions.items);
+  const options = useSelector((state: RootState) => state.questions.options);
   const error = useSelector((state: RootState) => state.questions.error);
   const loading = useSelector((state: RootState) => state.questions.loading);
   const dispatch = useDispatch();
-
-  const [options, setOptions] = useState<IOptions>({
-    order: Order.asc,
-    sort: Sort.activity,
-    pagesize: 5,
-    page: 1,
-  });
 
   useEffect(() => {
     dispatch({
@@ -31,20 +25,16 @@ const Questions: FC = () => {
     });
   }, [options]);
 
-  const changeOptions = (newOptions: IOptions): void => {
-    setOptions(newOptions);
-  };
-
   const choosePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
-      setOptions({ ...options, page: value });
+      dispatch(setOptions({ ...options, page: value }));
     },
     []
   );
 
   return (
     <>
-      <OptionsChoose changeOptions={changeOptions} options={options} />
+      <OptionsChoose />
       {error && (
         <Chip
           sx={{ display: "flex", justifyContent: "center" }}

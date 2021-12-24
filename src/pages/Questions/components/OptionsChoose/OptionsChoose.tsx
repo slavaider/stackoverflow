@@ -1,41 +1,30 @@
 import React, { FC, useCallback } from "react";
 
 import { Box, MenuItem, TextField } from "@mui/material";
-import IOptions, { Order, Sort } from "@store/model/IOptions";
+import { setOptions } from "@store/actions/questions/questionsActions";
+import { Order, Sort } from "@store/model/IOptions";
+import { RootState } from "@store/store";
+import { useDispatch, useSelector } from "react-redux";
 
-export type OptionsChooseProps = {
-  options: IOptions;
-  changeOptions: (options: IOptions) => void;
-};
+const OptionsChoose: FC = () => {
+  const dispatch = useDispatch();
+  const options = useSelector((state: RootState) => state.questions.options);
 
-const OptionsChoose: FC<OptionsChooseProps> = ({
-  options,
-  changeOptions,
-}: OptionsChooseProps) => {
   const handleSort = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeOptions({
-        ...options,
-        sort: event.target.value,
-      });
+      dispatch(setOptions({ ...options, sort: event.target.value }));
     },
     []
   );
   const handleOrder = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeOptions({
-        ...options,
-        order: event.target.value,
-      });
+      dispatch(setOptions({ ...options, order: event.target.value }));
     },
     []
   );
   const handlePageSize = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeOptions({
-        ...options,
-        pagesize: +event.target.value,
-      });
+      dispatch(setOptions({ ...options, pagesize: +event.target.value }));
     },
     []
   );
