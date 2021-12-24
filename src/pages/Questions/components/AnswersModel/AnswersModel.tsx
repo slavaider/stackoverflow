@@ -1,6 +1,22 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, FormEvent, useCallback, useEffect } from "react";
 
-import { Box, Modal, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Link,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Modal,
+  TextField,
+} from "@mui/material";
+import { ADD_ANSWER, FETCH_ANSWERS } from "@store/actionTypes";
+import { IAnswer } from "@store/model/IAnswer";
+import { RootState } from "@store/store";
+import { useDispatch, useSelector } from "react-redux";
 
 const style = {
   position: "absolute" as const,
@@ -22,26 +38,94 @@ const AnswersModel: FC<AnswersModelProps> = ({
   handleClose,
   id,
 }: AnswersModelProps) => {
+  const token = useSelector((state: RootState) => state.auth.token);
+  const answers = useSelector((state: RootState) => state.answers.items);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (open) {
-      console.log(id);
+      dispatch({ type: FETCH_ANSWERS, payload: id });
     }
   }, [open]);
 
+  const addAnswer = useCallback((event: FormEvent) => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+    dispatch({
+      type: ADD_ANSWER,
+      token,
+      id,
+      content: target.content.value,
+    });
+  }, []);
+
   return (
     <Modal
+      keepMounted
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+          {answers?.map((answer: IAnswer) => (
+            <React.Fragment key={answer.answer_id}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar src={answer.owner.profile_image} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={answer.owner.display_name}
+                  secondary={
+                    <span>
+                      Score: {answer.score} &nbsp;
+                      {answer.is_accepted ? "Accepted" : "Declined"}&nbsp;
+                      <Link
+                        rel="noreferrer"
+                        target="_blank"
+                        href={`https://stackoverflow.com/questions/${id}/#${answer.answer_id}`}
+                      >
+                        Link
+                      </Link>
+                    </span>
+                  }
+                />
+              </ListItem>
+              <Divider />
+            </React.Fragment>
+          ))}
+        </List>
+
+        <Box
+          component="form"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+          onSubmit={addAnswer}
+          autoComplete="off"
+        >
+          <TextField
+            multiline
+            required
+            inputProps={{ minLength: 30 }}
+            helperText="minimum 30 symbols"
+            defaultValue={
+              "Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n" +
+              "Eum nostrum unde vel! Doloribus ex facere placeat rerum?\n" +
+              "Accusantium error neque quia suscipit?\n" +
+              "Asperiores molestias nam nesciunt reiciendis reprehenderit?"
+            }
+            id={`${id}answer`}
+            name="content"
+            label="Your Answer"
+          />
+          <Button type="submit" size="large" variant="contained">
+            Send
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

@@ -1,4 +1,4 @@
-import { AUTH } from "@store/reducers/actionTypes";
+import { AUTH } from "@store/actionTypes";
 
 export interface IAuthAction {
   type: typeof AUTH;

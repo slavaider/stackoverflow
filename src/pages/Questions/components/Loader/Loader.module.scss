@@ -1,8 +1,14 @@
 @import 'src/styles/variables';
 @import 'src/styles/mixins';
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+
   .Loader {
-    margin: 0 auto;
+
     @include square(80px);
 
     .Point {
@@ -38,4 +44,6 @@
       }
     }
   }
+
+}
 

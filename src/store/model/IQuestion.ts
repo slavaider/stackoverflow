@@ -1,8 +1,5 @@
-export interface IOwner {
-  account_id: number;
-  profile_image: string;
-  display_name: string;
-}
+import IOwner from "./IOwner";
+
 export default interface IQuestion {
   tags: string[];
   owner: IOwner;

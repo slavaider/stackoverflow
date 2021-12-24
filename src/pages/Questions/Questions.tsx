@@ -1,9 +1,9 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 
 import { Pagination } from "@mui/material";
+import { FETCH_QUESTIONS } from "@store/actionTypes";
 import IOptions, { Order, Sort } from "@store/model/IOptions";
 import IQuestion from "@store/model/IQuestion";
-import { FETCH_QUESTIONS } from "@store/reducers/actionTypes";
 import { RootState } from "@store/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,7 +14,6 @@ import QuestionCard from "./components/QuestionCard";
 const Questions: FC = () => {
   const questions = useSelector((state: RootState) => state.questions.items);
   const loading = useSelector((state: RootState) => state.questions.loading);
-  const token = useSelector((state: RootState) => state.auth.token);
   const dispatch = useDispatch();
 
   const [options, setOptions] = useState<IOptions>({
@@ -28,7 +27,6 @@ const Questions: FC = () => {
     dispatch({
       type: FETCH_QUESTIONS,
       payload: options,
-      token,
     });
   }, [options]);
 

@@ -6,10 +6,12 @@ import classes from "./Loader.module.scss";
 
 const Loader: React.FC = () => {
   return (
-    <div className={classes.Loader}>
-      <div className={cn(classes.Point, classes.Point1)} />
-      <div className={cn(classes.Point, classes.Point2)} />
-      <div className={cn(classes.Point, classes.Point3)} />
+    <div className={classes.wrapper}>
+      <div className={classes.Loader}>
+        <div className={cn(classes.Point, classes.Point1)} />
+        <div className={cn(classes.Point, classes.Point2)} />
+        <div className={cn(classes.Point, classes.Point3)} />
+      </div>
     </div>
   );
 };

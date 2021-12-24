@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import IQuestion from "@store/model/IQuestion";
 
-import AnswersModel from "../AnswersModel/AnswersModel";
+import AnswersModel from "../AnswersModel";
 
 export type QuestionCardProps = {
   item: IQuestion;

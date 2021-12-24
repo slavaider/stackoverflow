@@ -27,7 +27,7 @@ const Auth: FC = () => {
       }}
       variant="contained"
       color="warning"
-      href={`https://stackoverflow.com/oauth/dialog?client_id=${api.client_id}&redirect_uri=${window.location.href}`}
+      href={`https://stackoverflow.com/oauth/dialog?client_id=${api.client_id}&redirect_uri=${window.location.href}&scope=write_access`}
     >
       Login to stackoverflow
     </Button>

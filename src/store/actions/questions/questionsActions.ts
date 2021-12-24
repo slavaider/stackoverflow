@@ -1,10 +1,10 @@
 import { IQuestionsActions } from "@store/actions/questions/types";
-import IQuestion from "@store/model/IQuestion";
 import {
   FETCH_QUESTIONS_FAILED,
   FETCH_QUESTIONS_SUCCESS,
   SET_LOADING,
-} from "@store/reducers/actionTypes";
+} from "@store/actionTypes";
+import IQuestion from "@store/model/IQuestion";
 
 export function getQuestionsSuccess(questions: IQuestion[]): IQuestionsActions {
   return { type: FETCH_QUESTIONS_SUCCESS, payload: questions };

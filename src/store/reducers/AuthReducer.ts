@@ -1,5 +1,5 @@
 import { IAuthAction } from "@store/actions/auth/types";
-import { AUTH } from "@store/reducers/actionTypes";
+import { AUTH } from "@store/actionTypes";
 
 interface IAuth {
   token: string;
