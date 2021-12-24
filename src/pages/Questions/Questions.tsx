@@ -37,7 +37,7 @@ const Questions: FC = () => {
 
   const choosePage = useCallback(
     (event: React.ChangeEvent<unknown>, value: number) => {
-      setOptions({ ...options, page: value });
+      setOptions((prev) => ({ ...prev, page: value }));
     },
     []
   );
