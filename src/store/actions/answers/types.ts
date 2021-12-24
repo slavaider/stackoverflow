@@ -1,5 +1,6 @@
 import {
   ADD_ANSWER,
+  ADD_ANSWER_FAILED,
   ADD_ANSWER_SUCCESS,
   FETCH_ANSWERS,
   FETCH_ANSWERS_FAILED,
@@ -14,6 +15,7 @@ export interface IGetAnswersSuccess {
 
 export interface IGetAnswersFailed {
   type: typeof FETCH_ANSWERS_FAILED;
+  payload: Error;
 }
 
 export interface IGetAnswers {
@@ -33,8 +35,14 @@ export interface IAddAnswerSuccess {
   payload: IAnswer;
 }
 
+export interface IAddAnswerFailed {
+  type: typeof ADD_ANSWER_FAILED;
+  payload: Error;
+}
+
 export type IAnswersActions =
   | IGetAnswersSuccess
   | IGetAnswersFailed
   | IGetAnswers
-  | IAddAnswerSuccess;
+  | IAddAnswerSuccess
+  | IAddAnswerFailed;

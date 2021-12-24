@@ -10,8 +10,8 @@ export function getQuestionsSuccess(questions: IQuestion[]): IQuestionsActions {
   return { type: FETCH_QUESTIONS_SUCCESS, payload: questions };
 }
 
-export function getQuestionsFailed(): IQuestionsActions {
-  return { type: FETCH_QUESTIONS_FAILED };
+export function getQuestionsFailed(error: Error): IQuestionsActions {
+  return { type: FETCH_QUESTIONS_FAILED, payload: error };
 }
 
 export function setLoading(loading: boolean): IQuestionsActions {

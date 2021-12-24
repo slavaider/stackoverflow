@@ -1,5 +1,6 @@
 import api from "@config/api";
 import {
+  addAnswerError,
   addAnswerSuccess,
   getAnswersFailed,
   getAnswersSuccess,
@@ -20,8 +21,7 @@ function* getAnswers(action: IGetAnswers): any {
     const questions = yield call(fetchAnswers, api.path, action.payload);
     yield put(getAnswersSuccess(questions.data.items));
   } catch (error) {
-    yield put(getAnswersFailed());
-    console.log(error);
+    yield put(getAnswersFailed(error));
   }
 }
 
@@ -50,7 +50,7 @@ function* addAnswer(action: IPostAnswer): any {
     );
     yield put(addAnswerSuccess(questions.data.items[0]));
   } catch (error) {
-    console.log(error);
+    yield put(addAnswerError(error));
   }
 }
 

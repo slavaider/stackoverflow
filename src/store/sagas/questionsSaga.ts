@@ -23,8 +23,8 @@ function* getQuestions(action: IGetQuestions): any {
     yield put(setLoading(true));
     const questions = yield call(fetchQuestions, api.path, action.payload);
     yield put(getQuestionsSuccess(questions.data.items));
-  } catch (e) {
-    yield put(getQuestionsFailed());
+  } catch (error) {
+    yield put(getQuestionsFailed(error));
   } finally {
     yield put(setLoading(false));
   }

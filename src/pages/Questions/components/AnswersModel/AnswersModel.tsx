@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  Chip,
   Divider,
   Link,
   List,
@@ -40,6 +41,7 @@ const AnswersModel: FC<AnswersModelProps> = ({
 }: AnswersModelProps) => {
   const token = useSelector((state: RootState) => state.auth.token);
   const answers = useSelector((state: RootState) => state.answers.items);
+  const error = useSelector((state: RootState) => state.answers.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -96,6 +98,14 @@ const AnswersModel: FC<AnswersModelProps> = ({
             </React.Fragment>
           ))}
         </List>
+
+        {error && (
+          <Chip
+            sx={{ display: "flex", justifyContent: "center" }}
+            label={error.message}
+            color="warning"
+          />
+        )}
 
         <Box
           component="form"

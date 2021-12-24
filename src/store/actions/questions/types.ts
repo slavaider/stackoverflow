@@ -14,6 +14,7 @@ export interface IGetQuestionsSuccess {
 
 export interface IGetQuestionsFailed {
   type: typeof FETCH_QUESTIONS_FAILED;
+  payload: Error;
 }
 
 export interface IGetQuestions {

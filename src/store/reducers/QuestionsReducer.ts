@@ -9,11 +9,13 @@ import IQuestion from "@store/model/IQuestion";
 interface IQuestions {
   items: IQuestion[];
   loading: boolean;
+  error: null | Error;
 }
 
 const initialState: IQuestions = {
   items: [],
   loading: false,
+  error: null,
 };
 
 export default function QuestionsReducer(
@@ -25,12 +27,14 @@ export default function QuestionsReducer(
       return {
         ...state,
         items: action.payload,
+        error: null,
       };
     }
     case FETCH_QUESTIONS_FAILED: {
       return {
         ...state,
         items: [],
+        error: action.payload,
       };
     }
     case SET_LOADING: {
